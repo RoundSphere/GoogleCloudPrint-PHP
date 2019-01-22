@@ -1,0 +1,22 @@
+{
+    "name": "roundsphere/googlecloudprint",
+    "description": "Google Cloud Print PHP Client",
+    "type": "library",
+    "license": "Apache-2.0",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Brandon Checketts",
+            "email": "brandon@roundsphere.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "guzzlehttp/guzzle": "^6.0"
+    },
+    "autoload": {
+        "psr-4" : {
+            "GoogleCloudPrint\\" : "src/"
+        }
+    }
+}
