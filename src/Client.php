@@ -114,4 +114,31 @@ class Client {
 		}
 		return $printers;
     }
+
+    public function printDocument($printerId, $jobName, $bytes, $contentType)
+    {
+        $postData = [
+            'printerid'                 => $printerId,
+            'title'                     => $jobName,
+            'contentTransferEncoding'   => 'base64',
+            'content'                   => base64_encode($bytes),
+            'contentType'               => $contentType,
+        ];
+
+        $rawResponse = $this->sendRequest(
+            'POST',
+            'https://www.google.com/cloudprint/submit',
+            [
+                'form_params'  => $postData,
+            ]
+        );
+        $response = json_decode($rawResponse->getBody(), true);
+
+        if (isset($response['success']) && 1 == $response['success']) {
+            return $response;
+        }
+        $e = new \Exception('Google CloudPrint Job Failed: '.$response['message']);
+        $e->response = $response;
+        throw $e;
+    }
 }
